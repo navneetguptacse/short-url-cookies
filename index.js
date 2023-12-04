@@ -1,9 +1,10 @@
 const express = require("express");
 const path = require("path");
+const { connectToMongoDB } = require("./connect");
 
 const urlRoute = require("./routes/url");
 const staticRoute = require("./routes/static");
-const { connectToMongoDB } = require("./connect");
+const userRoute = require("./routes/user");
 
 const app = express();
 const PORT = 8001;
@@ -23,7 +24,7 @@ app.use(express.json()); // To parse the `json` data coming from the browser
 app.use(express.urlencoded({ extended: true })); // To parse the `form` data coming from the browser
 
 app.use("/url", urlRoute);
-
+app.use("/user", userRoute);
 app.use("/", staticRoute);
 
 app.listen(PORT, () => {
