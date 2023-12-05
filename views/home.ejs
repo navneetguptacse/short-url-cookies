@@ -16,6 +16,10 @@
   <body>
     <h1>URL Shortner</h1>
 
+    <% if (locals.name) { %>
+    <p>🎉 Welcome <%= locals.name.split(" ")[0] %> !</p>
+    <% } %>
+
     <% if (locals.id) { %>
     <div>
       <p>
@@ -57,6 +61,8 @@
           <% })%>
         </tbody>
       </table>
+      <% } else { %>
+      <p> <a href="/">back to homepage</a> </p>
       <% } %>
     </div>
   </body>

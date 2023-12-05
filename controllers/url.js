@@ -16,7 +16,7 @@ async function handleGenrateNewShortURL(req, res) {
     createdBy: req.user._id,
   });
 
-  return res.render("home", { // render home page with short url
+  return res.render("home", { 
     id: shortId,
   });
 }

@@ -9,6 +9,7 @@ router.get("/", async (req, res) => {
   const allURL = await URL.find({ createdBy: req.user._id });
   return res.render("home", {
     urls: allURL,
+    name: req.user.name,
   });
 });
 
