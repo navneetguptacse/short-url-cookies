@@ -9,6 +9,7 @@ async function handleGenrateNewShortURL(req, res) {
     });
   }
   const shortId = shortid.generate();
+  // console.log(req.user._id);
   await URL.create({
     shortID: shortId,
     redirectURL: body.url,
@@ -16,7 +17,7 @@ async function handleGenrateNewShortURL(req, res) {
     createdBy: req.user._id,
   });
 
-  return res.render("home", { 
+  return res.render("home", {
     id: shortId,
   });
 }
