@@ -1,0 +1,69 @@
+<%- include('partials/header') %>
+<div class="container mt-5">
+  <h4>Generate Short URL!</h4>
+  <hr />
+  <form method="POST" action="/url" class="mb-4">
+    <div class="mb-3">
+      <label for="url" class="form-label">Enter URL:</label>
+      <input
+        type="text"
+        name="url"
+        id="url"
+        class="form-control"
+        placeholder="https://www.example.com"
+        required
+      />
+    </div>
+    <p>
+      Please enter the original URL that you would like to generate a short link
+      for.
+    </p>
+    <button type="submit" class="btn btn-primary">Generate</button>
+  </form>
+
+  <% if (locals.shortID) { %>
+  <div class="alert alert-warning mb-3 position-relative" role="alert">
+    <p class="fw-bold">Short URL:</p>
+    <p class="mb-0">
+      Here is your short URL. Copy it and share it with others!
+    </p>
+    <div class="input-group">
+      <span
+        id="copyUrl"
+        data-clipboard-text="<%= `http://localhost:3000/url/${locals.shortID}` %>"
+        class="form-control"
+        ><%= `http://localhost:3000/url/${locals.shortID}` %></span
+      >
+      <button type="button" id="copyButton" class="btn btn-outline-secondary">
+        <i class="fas fa-copy"></i> Copy
+      </button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></script>
+  <script>
+    document
+      .getElementById("copyButton")
+      .addEventListener("click", function () {
+        var textArea = document.createElement("textarea");
+        textArea.value = document
+          .getElementById("copyUrl")
+          .getAttribute("data-clipboard-text");
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+
+        this.innerHTML = '<i class="fas fa-check"></i> Copied';
+        this.disabled = true;
+
+        setTimeout(() => {
+          this.innerHTML = '<i class="fas fa-copy"></i> Copy';
+          this.disabled = false;
+        }, 2000);
+      });
+  </script>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

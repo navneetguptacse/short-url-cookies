@@ -1,69 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <style>
-      body {
-        background-color: #f5f5f5;
-        font-family: "Open Sans", sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
-      }
-    </style>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
-  </head>
-  <body>
-    <h1>URL Shortner</h1>
+<%- include('partials/header') %>
 
-    <% if (locals.name) { %>
-    <p>🎉 Welcome <%= locals.name.split(" ")[0] %> !</p>
-    <% } %>
+<div class="card container mt-5 text-center w-75">
+  <div class="card-header text-primary">
+    <span class="align-middle"
+      >Welcome Back, <%= locals.name.split(" ")[0] %>..!</span
+    >
+  </div>
+  <div class="card-body">
+    <h4 class="card-title">Quick Linker</h4>
+    <p class="card-text">
+      Elevate Your Sharing Experience with Lightning-Fast Short URLs
+    </p>
+    <div class="mt-4">
+      <a href="/generate" class="btn btn-outline-primary me-3">Generate Link</a>
+      <a href="/view" class="btn btn-outline-warning">View Analytics</a>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      <div class="card col-md-6 m-2" style="width: 15rem">
+        <i class="bi bi-link-45deg" style="font-size: 4rem; color: #007bff"></i>
+        <div class="card-body">
+          <p class="card-text">
+            Generate, share link effortlessly and user-friendly, choosing
+            concise, alternatives for efficient top-communication.
+          </p>
+        </div>
+      </div>
+      <div class="card col-md-6 m-2" style="width: 15rem">
+        <i class="bi bi-bar-chart" style="font-size: 4rem; color: #ffc107"></i>
+        <div class="card-body">
+          <p class="card-text">
+            Monitor link analytics seamlessly for insights into performance,
+            user engagement, and your top-performing links.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <% if (locals.id) { %>
-    <div>
-      <p>
-        Short URL:
-        <a href="<%= `http://localhost:8001/url/${locals.id}` %>"
-          ><%= `http://localhost:8001/url/${locals.id}` %></a
-        >
-      </p>
-    </div>
-    <% } %>
-
-    <div>
-      <form method="POST" action="/url">
-        <label> Enter URL: </label>
-        <input type="text" name="url" placeholder="https://example.com/..." />
-        <button type="submit">Generate</button>
-      </form>
-    </div>
-    <br />
-    <div>
-      <% if (locals.urls) { %>
-      <table>
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Short ID</th>
-            <th>Redirect URL</th>
-            <th>Clicks</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% urls.forEach((url, index) => { %>
-          <tr>
-            <td><%= index + 1 %></td>
-            <td><%= url.shortID %></td>
-            <td><%= url.redirectURL %></td>
-            <td><%= url.visitHistory.length %></td>
-          </tr>
-          <% })%>
-        </tbody>
-      </table>
-      <% } else { %>
-      <p> <a href="/">back to homepage</a> </p>
-      <% } %>
-    </div>
-  </body>
-</html>
+<%- include('partials/footer') %>

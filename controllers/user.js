@@ -4,8 +4,12 @@ const { setUser } = require("../services/auth");
 
 async function handleUserSignUp(req, res) {
   const { name, email, password } = req.body;
-  // TODO: Add validation
-  await User.create({ name, email, password });
+  // Add validation for email and password
+  
+  const newUser = await User.create({ name, email, password });
+  const sessionId = uuidv4();
+  setUser(sessionId, { id: newUser._id, name: newUser.name, email: newUser.email });
+  res.cookie("uid", sessionId);
   return res.redirect("/");
 }
 
@@ -15,9 +19,8 @@ async function handleUserLogin(req, res) {
   if (!user) {
     return res.render("login", { error: "Invalid email or password" });
   }
-
   const sessionId = uuidv4();
-  setUser(sessionId, user);
+  setUser(sessionId, { id: user._id, name: user.name, email: user.email });
   res.cookie("uid", sessionId);
   return res.redirect("/");
 }
