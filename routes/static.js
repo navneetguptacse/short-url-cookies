@@ -34,7 +34,7 @@ router.get("/view", async (req, res) => {
   if (!req.user) {
     return res.redirect("/login");
   }
-  const url = await Url.find({ createdBy: req.user._id });
+  const url = await Url.find({ createdBy: req.user.id });
   return res.render("view", {
     urls: url,
     pageTitle: "View URL",
