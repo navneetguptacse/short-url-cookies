@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
   }
   return res.render("home", {
     name: req.user.name,
-    pageTitle: "URL Shortner",
+    pageTitle: "Quick Linker",
   });
 });
 
